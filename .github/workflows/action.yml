@@ -3,18 +3,23 @@ on:
   push:
     branches:
       - master
+
 jobs:
   test:
     runs-on: ubuntu-18.04
-  steps:
-    - uses: actions/checkout@v1
-    - name: Bootstrap app on Ubuntu
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - name: Install global package
-      run: npm i -g yarn
-    - name: Install project deps
-      run: yarn
-    - name: Build and run docker-compose Hm
-      run: docker-compose up
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Bootstrap app on Ubuntu
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install global packages
+        run: npm install -g yarn
+
+      - name: Install project deps
+        run: yarn
+
+      - name: Build the docker-compose
+        run: docker-compose up
